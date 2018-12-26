@@ -1,5 +1,9 @@
-﻿using CodiJobServices.Model;
-using CodiJobServices.Model.CodiJobDb;
+﻿using Application.IServices;
+using Application.Services;
+using CodiJobServices.Domain;
+using CodiJobServices.Domain.IRepositories;
+using CodiJobServices.Model;
+
 using CodiJobServices.Model.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -10,7 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace CodiJobServices
-{   
+{
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -36,7 +40,7 @@ namespace CodiJobServices
                 .AddDefaultTokenProviders();
 
             services.AddTransient<IProyectoRepository, EFProyectoRepository>();
-
+            services.AddTransient<IProyectoService, ProyectoService>();
             services.AddSwaggerGen(c => {
                 c.SwaggerDoc("v1", new Info { Title = "CodiJobServices", Version = "v1" });
             });

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace CodiJobServices.Model.Repositories
+namespace CodiJobServices.Domain.IRepositories
 {
     public interface IRepository<TEntity>
     {

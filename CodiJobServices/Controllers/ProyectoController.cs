@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Application.DTOs;
+using Application.IServices;
+using CodiJobServices.Domain;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using CodiJobServices.Model.CodiJobDb;
-using CodiJobServices.Model.Repositories;
-using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,44 +13,39 @@ namespace CodiJobServices.Controllers
     [Route("api/[controller]")]
     public class ProyectoController : Controller
     {
-        private IProyectoRepository repositorio;
-        public ProyectoController(IProyectoRepository repo) {
-            repositorio = repo;
+        private IProyectoService Service;
+        public ProyectoController(IProyectoService service) {
+            Service = service;
         }
         // GET: api/<controller>
         [HttpGet]
-        public IQueryable<Tproyectos> Get()
+        public IList<ProyectoDTO> Get()
         {
-            return repositorio.Items;
+            return Service.GetAll();
         }
 
         // GET api/<controller>/5
         [HttpGet("{ProyectoId}")]
-        public Tproyectos Get(Guid ProyectoId)
+        public ProyectoDTO Get(Guid ProyectoId)
         {
             
-            return repositorio.Items.Where(p => p.ProyectoId == ProyectoId).FirstOrDefault();
+            return Service.GetAll().Where(p => p.ProId == ProyectoId).FirstOrDefault();
         }
-  
-        [HttpGet("{pageSize}/{page}")]
-        public IQueryable<Tproyectos> Get(int pageSize, int page)
-        {
-            return repositorio.FilterProyectos(pageSize, page);
-        }
+
         // POST api/<controller>
         [HttpPost]
-        public IActionResult Post([FromBody]Tproyectos proyecto)
+        public IActionResult Post([FromBody]ProyectoDTO proyecto)
         {
-            repositorio.Save(proyecto);
+            Service.Insert(proyecto);
             return Ok(true);
         }
 
         // PUT api/<controller>/5
         [HttpPut("{ProyectoId}")]
-        public IActionResult Put(Guid ProyectoId, [FromBody]Tproyectos proyecto)
+        public IActionResult Put(Guid ProyectoId, [FromBody]ProyectoDTO proyecto)
         {
-            proyecto.ProyectoId = ProyectoId;
-            repositorio.Save(proyecto);
+            proyecto.ProId = ProyectoId;
+            Service.Insert(proyecto);
             return Ok(true);
         }
 
@@ -58,7 +53,7 @@ namespace CodiJobServices.Controllers
         [HttpDelete("{ProyectoId}")]
         public IActionResult Delete(Guid ProyectoId)
         {
-           repositorio.Delete(ProyectoId);
+            Service.Delete(ProyectoId);
            return Ok(true);
         }
     }
