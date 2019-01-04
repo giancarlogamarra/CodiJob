@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CodiJobServices.Domain
+namespace Domain
 {
     public partial class TUsuskill
     {

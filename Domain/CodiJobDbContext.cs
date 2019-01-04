@@ -2,10 +2,16 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace CodiJobServices.Domain
+namespace Domain
 {
     public partial class CodiJobDbContext : DbContext
     {
+        public CodiJobDbContext(DbContextOptions<CodiJobDbContext> options)
+        : base(options)
+        {
+
+        }
+
         public virtual DbSet<TGrupo> TGrupo { get; set; }
         public virtual DbSet<TProyecto> TProyecto { get; set; }
         public virtual DbSet<TSkill> TSkill { get; set; }
@@ -13,16 +19,13 @@ namespace CodiJobServices.Domain
         public virtual DbSet<TUsuarioperfil> TUsuarioperfil { get; set; }
         public virtual DbSet<TUsuarioproyecto> TUsuarioproyecto { get; set; }
         public virtual DbSet<TUsuskill> TUsuskill { get; set; }
-        public CodiJobDbContext(DbContextOptions<CodiJobDbContext> options)
-         : base(options)
-        {
-        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-            //    optionsBuilder.UseSqlServer(@"data source = TOSHIBA; initial catalog = CodiJob; user id = sa; password = desarrollo2012");
+              //  optionsBuilder.UseSqlServer(@"data source = 172.23.0.209; initial catalog = CodiJob; user id = sa; password = desarrollo2012");
             }
         }
 
@@ -30,12 +33,10 @@ namespace CodiJobServices.Domain
         {
             modelBuilder.Entity<TGrupo>(entity =>
             {
-                entity.HasKey(e => e.GrupoId);
-
                 entity.ToTable("t_grupo");
 
-                entity.Property(e => e.GrupoId)
-                    .HasColumnName("grupo_id")
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
                     .ValueGeneratedNever();
 
                 entity.Property(e => e.GrupoFoto)
@@ -56,30 +57,30 @@ namespace CodiJobServices.Domain
 
             modelBuilder.Entity<TProyecto>(entity =>
             {
-                entity.HasKey(e => e.ProId);
+                entity.HasKey(e => e.ProyId);
 
                 entity.ToTable("t_proyecto");
 
-                entity.Property(e => e.ProId)
-                    .HasColumnName("pro_id")
+                entity.Property(e => e.ProyId)
+                    .HasColumnName("proy_id")
                     .ValueGeneratedNever();
 
-                entity.Property(e => e.ProdDesc)
-                    .HasColumnName("prod_desc")
+                entity.Property(e => e.ProyDesc)
+                    .HasColumnName("proy_desc")
                     .HasMaxLength(100)
                     .IsUnicode(false);
 
-                entity.Property(e => e.ProdFecha)
-                    .HasColumnName("prod_fecha")
+                entity.Property(e => e.ProyFecha)
+                    .HasColumnName("proy_fecha")
                     .HasColumnType("datetime");
 
-                entity.Property(e => e.ProdNom)
-                    .HasColumnName("prod_nom")
+                entity.Property(e => e.ProyNom)
+                    .HasColumnName("proy_nom")
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.ProdUrl)
-                    .HasColumnName("prod_url")
+                entity.Property(e => e.ProyUrl)
+                    .HasColumnName("proy_url")
                     .HasMaxLength(50)
                     .IsUnicode(false);
             });
@@ -168,13 +169,13 @@ namespace CodiJobServices.Domain
                     .HasColumnName("usupro_id")
                     .ValueGeneratedNever();
 
-                entity.Property(e => e.ProId).HasColumnName("pro_id");
+                entity.Property(e => e.ProyId).HasColumnName("proy_id");
 
                 entity.Property(e => e.UsuId).HasColumnName("usu_id");
 
-                entity.HasOne(d => d.Pro)
+                entity.HasOne(d => d.Proy)
                     .WithMany(p => p.TUsuarioproyecto)
-                    .HasForeignKey(d => d.ProId)
+                    .HasForeignKey(d => d.ProyId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_t_usuarioproyecto_t_proyecto");
 

@@ -1,5 +1,5 @@
-﻿using CodiJobServices.Domain;
-using CodiJobServices.Domain.IRepositories;
+﻿using Domain;
+using Domain.IRepositories;
 using System;
 using System.Linq;
 
@@ -16,21 +16,21 @@ namespace CodiJobServices.Model.Repositories
         public void Save(TProyecto proyecto)
         {
             
-            if (proyecto.ProId == Guid.Empty)
+            if (proyecto.ProyId == Guid.Empty)
             {
-                proyecto.ProId = Guid.NewGuid();
+                proyecto.ProyId = Guid.NewGuid();
                 context.TProyecto.Add(proyecto);
             }
             else
             {
                 TProyecto dbEntry = context.TProyecto
-                .FirstOrDefault(p => p.ProId == proyecto.ProId);
+                .FirstOrDefault(p => p.ProyId == proyecto.ProyId);
                 if (dbEntry != null)
                 {
-                    dbEntry.ProdNom = proyecto.ProdNom;
-                    dbEntry.ProdDesc = proyecto.ProdDesc;
-                    dbEntry.ProdFecha = proyecto.ProdFecha;
-                    dbEntry.ProdUrl = proyecto.ProdUrl;
+                    dbEntry.ProyNom = proyecto.ProyNom;
+                    dbEntry.ProyDesc = proyecto.ProyDesc;
+                    dbEntry.ProyFecha = proyecto.ProyFecha;
+                    dbEntry.ProyUrl = proyecto.ProyUrl;
                 }
             }
             context.SaveChangesAsync();
@@ -38,7 +38,7 @@ namespace CodiJobServices.Model.Repositories
         public void Delete(Guid ProyectoID)
         {
             TProyecto dbEntry = context.TProyecto
-            .FirstOrDefault(p => p.ProId == ProyectoID);
+            .FirstOrDefault(p => p.ProyId == ProyectoID);
             if (dbEntry != null)
             {
                 context.TProyecto.Remove(dbEntry);

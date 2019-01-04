@@ -1,7 +1,7 @@
 ﻿using Application.DTOs;
 using Application.IServices;
-using CodiJobServices.Domain;
-using CodiJobServices.Domain.IRepositories;
+using Domain;
+using Domain.IRepositories;
 using System;
 using System.Collections.Generic;
 

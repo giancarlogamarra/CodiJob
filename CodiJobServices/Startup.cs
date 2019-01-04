@@ -1,7 +1,7 @@
 ﻿using Application.IServices;
 using Application.Services;
-using CodiJobServices.Domain;
-using CodiJobServices.Domain.IRepositories;
+using Domain;
+using Domain.IRepositories;
 using CodiJobServices.Model;
 
 using CodiJobServices.Model.Repositories;

@@ -1,8 +1,6 @@
-﻿
-using CodiJobServices.Domain;
-using System.Linq;
+﻿using System.Linq;
 
-namespace CodiJobServices.Domain.IRepositories
+namespace Domain.IRepositories
 {
     public interface IProyectoRepository : IRepository<TProyecto>
     {

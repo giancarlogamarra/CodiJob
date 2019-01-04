@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CodiJobServices.Domain
+namespace Domain
 {
     public partial class TGrupo
     {
@@ -10,7 +10,7 @@ namespace CodiJobServices.Domain
             TUsuariogrupo = new HashSet<TUsuariogrupo>();
         }
 
-        public Guid GrupoId { get; set; }
+        public Guid Id { get; set; }
         public string GrupoNom { get; set; }
         public string GrupoFoto { get; set; }
         public string GrupoProm { get; set; }

@@ -1,6 +1,6 @@
 ﻿using Application.DTOs;
 using Application.IServices;
-using CodiJobServices.Domain;
+using Domain;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -29,7 +29,7 @@ namespace CodiJobServices.Controllers
         public ProyectoDTO Get(Guid ProyectoId)
         {
             
-            return Service.GetAll().Where(p => p.ProId == ProyectoId).FirstOrDefault();
+            return Service.GetAll().Where(p => p.ProyId == ProyectoId).FirstOrDefault();
         }
 
         // POST api/<controller>
@@ -44,7 +44,7 @@ namespace CodiJobServices.Controllers
         [HttpPut("{ProyectoId}")]
         public IActionResult Put(Guid ProyectoId, [FromBody]ProyectoDTO proyecto)
         {
-            proyecto.ProId = ProyectoId;
+            proyecto.ProyId = ProyectoId;
             Service.Insert(proyecto);
             return Ok(true);
         }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CodiJobServices.Domain
+namespace Domain
 {
     public partial class TProyecto
     {
@@ -10,11 +10,11 @@ namespace CodiJobServices.Domain
             TUsuarioproyecto = new HashSet<TUsuarioproyecto>();
         }
 
-        public Guid ProId { get; set; }
-        public string ProdNom { get; set; }
-        public string ProdDesc { get; set; }
-        public DateTime? ProdFecha { get; set; }
-        public string ProdUrl { get; set; }
+        public Guid ProyId { get; set; }
+        public string ProyNom { get; set; }
+        public string ProyDesc { get; set; }
+        public DateTime? ProyFecha { get; set; }
+        public string ProyUrl { get; set; }
 
         public ICollection<TUsuarioproyecto> TUsuarioproyecto { get; set; }
     }
