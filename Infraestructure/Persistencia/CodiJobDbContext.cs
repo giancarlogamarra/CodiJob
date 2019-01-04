@@ -1,8 +1,9 @@
 ﻿using System;
+using Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace Domain
+namespace Infraestructure.Persistencia
 {
     public partial class CodiJobDbContext : DbContext
     {

@@ -4,8 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Domain;
 using Domain.IRepositories;
+using Infraestructure.Persistencia;
 
-namespace CodiJobServices.Model.Repositories
+namespace Infraestructure.Repositories
 {
     public class EFGrupoRepository : IGrupoRepository
     {

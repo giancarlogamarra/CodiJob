@@ -1,9 +1,10 @@
 ﻿using Domain;
 using Domain.IRepositories;
+using Infraestructure.Persistencia;
 using System;
 using System.Linq;
 
-namespace CodiJobServices.Model.Repositories
+namespace Infraestructure.Repositories
 {
     public class EFProyectoRepository : IProyectoRepository
     {
