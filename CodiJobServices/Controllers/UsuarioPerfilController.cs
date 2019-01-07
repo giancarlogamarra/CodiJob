@@ -12,53 +12,53 @@ namespace CodiJobServices2.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
-    public class GrupoController : Controller
+    public class UsuarioPerfilController : Controller
     {
-        IGrupoService Service;
-        public GrupoController(IGrupoService service)
+        IUsuarioPerfilService Service;
+        public UsuarioPerfilController(IUsuarioPerfilService service)
         {
             this.Service = service;
         }
 
         // GET: api/<controller>
         [HttpGet]
-        public IList<GrupoDTO> Get()
+        public IList<UsuarioPerfilDTO> Get()
         {
             return Service.GetAll();
         }
 
         // GET api/<controller>/5
-        [HttpGet("{GrupoId}")]
-        public GrupoDTO Get(Guid GrupoId)
+        [HttpGet("{UsuarioPerfilId}")]
+        public UsuarioPerfilDTO Get(Guid UsuarioPerfilId)
         {
             return Service.GetAll()
-                .Where(p => p.Id == GrupoId)
+                .Where(p => p.UsuperId == UsuarioPerfilId)
                 .FirstOrDefault();
         }
 
         // POST api/<controller>
         [HttpPost]
-        public IActionResult Post([FromBody]GrupoDTO grupo)
+        public IActionResult Post([FromBody]UsuarioPerfilDTO usuarioPerfil)
         {
-            Service.Insert(grupo);
+            Service.Insert(usuarioPerfil);
             return Ok(true);
         }
 
         // PUT api/<controller>/5
-        [HttpPut("{GrupoId}")]
-        public IActionResult Put(Guid GrupoId,
-                        [FromBody]GrupoDTO grupo)
+        [HttpPut("{UsuarioPerfilId}")]
+        public IActionResult Put(Guid UsuarioPerfilId,
+                        [FromBody]UsuarioPerfilDTO usuarioPerfil)
         {
-            grupo.Id = GrupoId;
-            Service.Update(grupo);
+            usuarioPerfil.UsuperId = UsuarioPerfilId;
+            Service.Update(usuarioPerfil);
             return Ok(true);
         }
 
         // DELETE api/<controller>/5
-        [HttpDelete("{GrupoId}")]
-        public IActionResult Delete(Guid GrupoId)
+        [HttpDelete("{UsuarioPerfilId}")]
+        public IActionResult Delete(Guid UsuarioPerfilId)
         {
-            Service.Delete(GrupoId);
+            Service.Delete(UsuarioPerfilId);
             return Ok(true);
         }
     }

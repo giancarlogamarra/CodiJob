@@ -5,11 +5,11 @@ using System.Text;
 
 namespace Application.IServices
 {
-    public interface IProyectoService
+    public interface ISkillService
     {
-        void Insert(ProyectoDTO entityDTO);
-        IList<ProyectoDTO> GetAll();
-        void Update(ProyectoDTO entityDTO);
+        void Insert(SkillDTO entityDTO);
+        IList<SkillDTO> GetAll();
+        void Update(SkillDTO entityDTO);
         void Delete(Guid entityId);
     }
 }

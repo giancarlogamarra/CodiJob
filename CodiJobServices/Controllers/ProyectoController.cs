@@ -36,6 +36,10 @@ namespace CodiJobServices.Controllers
         [HttpPost]
         public IActionResult Post([FromBody]ProyectoDTO proyecto)
         {
+            if (!ModelState.IsValid)
+            {
+                throw new Exception("Model is not Valid");
+            }
             Service.Insert(proyecto);
             return Ok(true);
         }

@@ -5,11 +5,11 @@ using System.Text;
 
 namespace Application.IServices
 {
-    public interface IProyectoService
+    public interface IGrupoService
     {
-        void Insert(ProyectoDTO entityDTO);
-        IList<ProyectoDTO> GetAll();
-        void Update(ProyectoDTO entityDTO);
+        void Insert(GrupoDTO entityDTO);
+        IList<GrupoDTO> GetAll();
+        void Update(GrupoDTO entityDTO);
         void Delete(Guid entityId);
     }
 }

@@ -9,10 +9,10 @@ using Domain.IRepositories;
 
 namespace Application.Services
 {
-    public class ProyectoService : IProyectoService
+    public class UsuarioPerfilService : IUsuarioPerfilService
     {
-        IProyectoRepository repository;
-        public ProyectoService(IProyectoRepository repo)
+        IUsuarioPerfilRepository repository;
+        public UsuarioPerfilService(IUsuarioPerfilRepository repo)
         {
             repository = repo;
         }
@@ -22,32 +22,31 @@ namespace Application.Services
             repository.Delete(entityId);
         }
         
-        public IList<ProyectoDTO> GetAll()
+        public IList<UsuarioPerfilDTO> GetAll()
         {
-            IQueryable<TProyecto> proyectosEntities= repository.Items;
+            IQueryable<TUsuarioperfil> gruposEntities= repository.Items;
 
             return Builders.
                    GenericBuilder.
-                   builderListEntityDTO<ProyectoDTO, TProyecto>
-                   (proyectosEntities);
+                   builderListEntityDTO<UsuarioPerfilDTO, TUsuarioperfil>
+                   (gruposEntities);
         }
 
-        public void Insert(ProyectoDTO entityDTO)
+        public void Insert(UsuarioPerfilDTO entityDTO)
         {
-            TProyecto entity = Builders.
+            TUsuarioperfil entity = Builders.
                         GenericBuilder.
-                        builderDTOEntity<TProyecto, ProyectoDTO>
+                        builderDTOEntity<TUsuarioperfil, UsuarioPerfilDTO>
                         (entityDTO);
             repository.Save(entity);
-
         }
 
 
-        public void Update(ProyectoDTO entityDTO)
+        public void Update(UsuarioPerfilDTO entityDTO)
         {
             var entity = Builders.
                 GenericBuilder.
-                builderDTOEntity<TProyecto, ProyectoDTO>
+                builderDTOEntity<TUsuarioperfil, UsuarioPerfilDTO>
                 (entityDTO);
             repository.Save(entity);
         }

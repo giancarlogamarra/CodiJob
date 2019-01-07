@@ -9,10 +9,10 @@ using Domain.IRepositories;
 
 namespace Application.Services
 {
-    public class ProyectoService : IProyectoService
+    public class SkillService : ISkillService
     {
-        IProyectoRepository repository;
-        public ProyectoService(IProyectoRepository repo)
+        ISkillRepository repository;
+        public SkillService(ISkillRepository repo)
         {
             repository = repo;
         }
@@ -22,32 +22,31 @@ namespace Application.Services
             repository.Delete(entityId);
         }
         
-        public IList<ProyectoDTO> GetAll()
+        public IList<SkillDTO> GetAll()
         {
-            IQueryable<TProyecto> proyectosEntities= repository.Items;
+            IQueryable<TSkill> skillsEntities= repository.Items;
 
             return Builders.
                    GenericBuilder.
-                   builderListEntityDTO<ProyectoDTO, TProyecto>
-                   (proyectosEntities);
+                   builderListEntityDTO<SkillDTO, TSkill>
+                   (skillsEntities);
         }
 
-        public void Insert(ProyectoDTO entityDTO)
+        public void Insert(SkillDTO entityDTO)
         {
-            TProyecto entity = Builders.
+            TSkill entity = Builders.
                         GenericBuilder.
-                        builderDTOEntity<TProyecto, ProyectoDTO>
+                        builderDTOEntity<TSkill, SkillDTO>
                         (entityDTO);
             repository.Save(entity);
-
         }
 
 
-        public void Update(ProyectoDTO entityDTO)
+        public void Update(SkillDTO entityDTO)
         {
             var entity = Builders.
                 GenericBuilder.
-                builderDTOEntity<TProyecto, ProyectoDTO>
+                builderDTOEntity<TSkill, SkillDTO>
                 (entityDTO);
             repository.Save(entity);
         }

@@ -1,8 +1,13 @@
-﻿using Application.IServices;
+﻿using Application.DTOs;
+using Application.IServices;
 using Application.Services;
-using Domain;
-using Domain.IRepositories;
 using CodiJobServices.Model;
+using Domain.IRepositories;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using Infraestructure.Persistencia;
+using Infraestructure.Repositories;
+using Infraestructure.Transversal.FluentValidations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -10,8 +15,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
-using Infraestructure.Persistencia;
-using Infraestructure.Repositories;
 
 namespace CodiJobServices
 {
@@ -39,13 +42,25 @@ namespace CodiJobServices
                 .AddEntityFrameworkStores<AppIdentityDbContext>()
                 .AddDefaultTokenProviders();
 
+            //Repositories
             services.AddTransient<IProyectoRepository, EFProyectoRepository>();
+            services.AddTransient<ISkillRepository, EFSkillRepository>();
+            services.AddTransient<IGrupoRepository, EFGrupoRepository>();
+
+            //Services
             services.AddTransient<IProyectoService, ProyectoService>();
+            services.AddTransient<ISkillService, SkillService>();
+            services.AddTransient<IGrupoService, GrupoService>();
+
+            //Validators
+            services.AddTransient<IValidator<ProyectoDTO>, ProyectoDTOValidator>();
+
+
             services.AddSwaggerGen(c => {
                 c.SwaggerDoc("v1", new Info { Title = "CodiJobServices", Version = "v1" });
             });
 
-            services.AddMvc();
+            services.AddMvc().AddFluentValidation();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

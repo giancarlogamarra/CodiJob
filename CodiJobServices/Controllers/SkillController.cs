@@ -2,53 +2,55 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application.DTOs;
+using Application.IServices;
 using Domain;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CodiJobServices.Controllers
+namespace CodiJobServices2.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
     public class SkillController : Controller
     {
-        /*ISkillRepository repository;
-        public SkillController(ISkillRepository repo)
+        ISkillService Service;
+        public SkillController(ISkillService service)
         {
-            this.repository = repo;
+            this.Service = service;
         }
 
         // GET: api/<controller>
         [HttpGet]
-        public IQueryable<TSkill> Get()
+        public IList<SkillDTO> Get()
         {
-            return repository.Items;
+            return Service.GetAll();
         }
 
         // GET api/<controller>/5
         [HttpGet("{SkillId}")]
-        public TSkill Get(Guid SkillId)
+        public SkillDTO Get(Guid SkillId)
         {
-            return repository.Items
+            return Service.GetAll()
                 .Where(p => p.SkillId == SkillId)
                 .FirstOrDefault();
         }
 
         // POST api/<controller>
         [HttpPost]
-        public IActionResult Post([FromBody]TSkill skill)
+        public IActionResult Post([FromBody]SkillDTO skill)
         {
-            repository.Save(skill);
+            Service.Insert(skill);
             return Ok(true);
         }
 
         // PUT api/<controller>/5
         [HttpPut("{SkillId}")]
         public IActionResult Put(Guid SkillId,
-                        [FromBody]TSkill skill)
+                        [FromBody]SkillDTO skill)
         {
             skill.SkillId = SkillId;
-            repository.Save(skill);
+            Service.Update(skill);
             return Ok(true);    
         }
 
@@ -56,8 +58,8 @@ namespace CodiJobServices.Controllers
         [HttpDelete("{SkillId}")]
         public IActionResult Delete(Guid SkillId)
         {
-            repository.Delete(SkillId);
+            Service.Delete(SkillId);
             return Ok(true);
-        }*/
+        }
     }
 }
