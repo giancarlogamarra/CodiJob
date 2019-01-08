@@ -1,6 +1,7 @@
 ﻿using Application.DTOs;
 using Application.IServices;
 using Domain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace CodiJobServices.Controllers
         }
         // GET: api/<controller>
         [HttpGet]
+        [Authorize]
         public IList<ProyectoDTO> Get()
         {
             return Service.GetAll();

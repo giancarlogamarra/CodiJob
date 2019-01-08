@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Application.DTOs
 {
@@ -11,5 +9,6 @@ namespace Application.DTOs
         public string UsuperGit { get; set; }
         public string UsuperBlog { get; set; }
         public string UsuperWeb { get; set; }
+        public string Token { get; set; }
     }
 }

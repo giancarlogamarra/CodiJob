@@ -7,14 +7,19 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using Infraestructure.Persistencia;
 using Infraestructure.Repositories;
+using Infraestructure.Transversal.Authentication;
 using Infraestructure.Transversal.FluentValidations;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Swashbuckle.AspNetCore.Swagger;
+using Microsoft.IdentityModel.Tokens;
+using Infraestructure.Transversal.Swagger;
+
+using System.Text;
 
 namespace CodiJobServices
 {
@@ -46,19 +51,43 @@ namespace CodiJobServices
             services.AddTransient<IProyectoRepository, EFProyectoRepository>();
             services.AddTransient<ISkillRepository, EFSkillRepository>();
             services.AddTransient<IGrupoRepository, EFGrupoRepository>();
+            services.AddTransient<IUsuarioPerfilRepository, EFUsuarioPerfilRepository>();
 
             //Services
             services.AddTransient<IProyectoService, ProyectoService>();
             services.AddTransient<ISkillService, SkillService>();
             services.AddTransient<IGrupoService, GrupoService>();
+            services.AddTransient<IUsuarioPerfilService, UsuarioPerfilService>();
+            services.AddTransient<IUserService, UserService>();
 
             //Validators
             services.AddTransient<IValidator<ProyectoDTO>, ProyectoDTOValidator>();
 
+            // configure jwt authentication
+            var appSettingsSection = Configuration.GetSection("AppSettings");
+            services.Configure<AppSettings>(appSettingsSection);
+            var appSettings = appSettingsSection.Get<AppSettings>();
+            var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+           .AddJwtBearer(x =>
+           {
+               x.RequireHttpsMetadata = false;
+               x.SaveToken = true;
+               x.TokenValidationParameters = new TokenValidationParameters
+               {
+                   ValidateIssuerSigningKey = true,
+                   IssuerSigningKey = new SymmetricSecurityKey(key),
+                   ValidateIssuer = false,
+                   ValidateAudience = false
+                   };
+           });
 
-            services.AddSwaggerGen(c => {
-                c.SwaggerDoc("v1", new Info { Title = "CodiJobServices", Version = "v1" });
-            });
+
+            services.AddSwaggerDocumentation();
 
             services.AddMvc().AddFluentValidation();
         }
@@ -70,11 +99,8 @@ namespace CodiJobServices
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-            });
+            app.UseSwaggerDocumentation();
+
             app.UseAuthentication();
             app.UseMvc();
             IdentitySeedData.EnsurePopulated(app);

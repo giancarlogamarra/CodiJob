@@ -9,6 +9,7 @@ namespace Application.IServices
     {
         void Insert(UsuarioPerfilDTO entityDTO);
         IList<UsuarioPerfilDTO> GetAll();
+        UsuarioPerfilDTO GetUsuarioPerfil(Guid Id);
         void Update(UsuarioPerfilDTO entityDTO);
         void Delete(Guid entityId);
     }

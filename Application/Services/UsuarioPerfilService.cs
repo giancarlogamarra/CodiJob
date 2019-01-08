@@ -32,6 +32,15 @@ namespace Application.Services
                    (gruposEntities);
         }
 
+        public UsuarioPerfilDTO GetUsuarioPerfil(Guid Id)
+        {
+            var entity = repository.Items.Where(u => u.UsuperId == Id).FirstOrDefault();
+            return Builders.
+                  GenericBuilder.
+                  builderEntityDTO<UsuarioPerfilDTO, TUsuarioperfil>
+                  (entity);
+        }
+
         public void Insert(UsuarioPerfilDTO entityDTO)
         {
             TUsuarioperfil entity = Builders.
