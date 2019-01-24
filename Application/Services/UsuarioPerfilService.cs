@@ -50,6 +50,14 @@ namespace Application.Services
             repository.Save(entity);
         }
 
+        public void InsertWithID(UsuarioPerfilDTO entityDTO)
+        {
+            TUsuarioperfil entity = Builders.
+                        GenericBuilder.
+                        builderDTOEntity<TUsuarioperfil, UsuarioPerfilDTO>
+                        (entityDTO);
+            repository.SaveWithId(entity);
+        }
 
         public void Update(UsuarioPerfilDTO entityDTO)
         {

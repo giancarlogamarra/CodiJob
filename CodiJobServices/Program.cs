@@ -12,7 +12,9 @@ namespace CodiJobServices
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .UseKestrel()
                 .UseStartup<Startup>()
+                .UseIISIntegration()
                 .UseDefaultServiceProvider(options =>
                 options.ValidateScopes = false)
                 .Build();

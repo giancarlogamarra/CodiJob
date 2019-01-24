@@ -85,7 +85,9 @@ namespace CodiJobServices
                    ValidateAudience = false
                    };
            });
-
+            services.Configure<IISOptions>(options => {
+                options.AutomaticAuthentication = false;
+            });
 
             services.AddSwaggerDocumentation();
 
@@ -99,11 +101,12 @@ namespace CodiJobServices
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseDeveloperExceptionPage();
             app.UseSwaggerDocumentation();
 
             app.UseAuthentication();
             app.UseMvc();
-            IdentitySeedData.EnsurePopulated(app);
+            // IdentitySeedData.EnsurePopulated(app);
         }
     }
 }

@@ -51,5 +51,13 @@ namespace Infraestructure.Repositories
             }
             Context.SaveChangesAsync();
         }
+
+        public void SaveWithId(TUsuarioperfil item)
+        {
+            if (item.UsuperId != Guid.Empty) {
+                Context.TUsuarioperfil.Add(item);
+                Context.SaveChangesAsync();
+            }
+        }
     }
 }

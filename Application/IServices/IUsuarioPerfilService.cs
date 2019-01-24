@@ -8,6 +8,7 @@ namespace Application.IServices
     public interface IUsuarioPerfilService
     {
         void Insert(UsuarioPerfilDTO entityDTO);
+        void InsertWithID(UsuarioPerfilDTO entityDTO);
         IList<UsuarioPerfilDTO> GetAll();
         UsuarioPerfilDTO GetUsuarioPerfil(Guid Id);
         void Update(UsuarioPerfilDTO entityDTO);
