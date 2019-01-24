@@ -4,7 +4,7 @@ namespace Application.DTOs.CustomDTO
 {
     public class AddUserDTO
     {
-        public Guid ID { get; set; }
+        /*public Guid ID { get; set; }*/
         public string Name { get; set; }
         public string Descripcion { get; set; }
         public string Git { get; set; }

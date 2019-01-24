@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Domain.IRepositories;
+using System.Threading.Tasks;
 
 namespace Application.Services
 {
@@ -50,13 +51,13 @@ namespace Application.Services
             repository.Save(entity);
         }
 
-        public void InsertWithID(UsuarioPerfilDTO entityDTO)
+        public async Task InsertWithID(UsuarioPerfilDTO entityDTO)
         {
             TUsuarioperfil entity = Builders.
                         GenericBuilder.
                         builderDTOEntity<TUsuarioperfil, UsuarioPerfilDTO>
                         (entityDTO);
-            repository.SaveWithId(entity);
+            await repository.SaveWithId(entity);
         }
 
         public void Update(UsuarioPerfilDTO entityDTO)

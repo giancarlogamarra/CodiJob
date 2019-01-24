@@ -90,7 +90,7 @@ namespace Infraestructure.Transversal.Authentication
                         UsuperBlog = dto.Blog,
                         UsuperWeb = dto.Web
                     };
-                    ServiceUsuarioPerfil.InsertWithID(usuartioPerfilDTO);
+                    await ServiceUsuarioPerfil.InsertWithID(usuartioPerfilDTO);
                 }
             }
             else
