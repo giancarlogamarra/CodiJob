@@ -101,6 +101,12 @@ namespace CodiJobServices
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseCors(builder => builder
+             .AllowAnyOrigin()
+             .AllowAnyMethod()
+             .AllowAnyHeader()
+             .AllowCredentials());
+
             app.UseDeveloperExceptionPage();
             app.UseSwaggerDocumentation();
 
